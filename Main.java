@@ -74,7 +74,7 @@ public class Main extends Application {
         root.getChildren().addAll(industryLabel, groupChoiceBox, lineChart, descriptionText);
 
         // Set up the scene and show the stage
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 820, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Un-Essay Project");
         primaryStage.show();
