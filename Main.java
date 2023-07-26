@@ -4,6 +4,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -68,10 +70,17 @@ public class Main extends Application {
             descriptionText.setText(description);
         });
 
-        // Create the main layout and add the label, choice box, line chart, and description text to it
-        VBox root = new VBox(10);
+        // Create a Button for showing the sources
+        Button sourcesButton = new Button("Sources");
+        sourcesButton.setOnAction(e -> showSourcesPopup());
+
+        // Use an HBox to position the button to the right of the choice box
+        HBox headerBox = new HBox(10, industryLabel, groupChoiceBox, sourcesButton);
+
+        // Combine the header layout and the chart+description layout into the main layout
+        VBox root = new VBox(headerBox, lineChart, descriptionText);
         root.setPadding(new javafx.geometry.Insets(10));
-        root.getChildren().addAll(industryLabel, groupChoiceBox, lineChart, descriptionText);
+        root.setSpacing(10);
 
         // Set up the scene and show the stage
         Scene scene = new Scene(root, 820, 800);
@@ -83,12 +92,12 @@ public class Main extends Application {
     // Helper method to retrieve the description for each group (you can modify the descriptions as needed)
     private String getDescriptionForGroup(int groupIndex) {
         String[] descriptions = {
-            "Tech",
-            "Bank ",
-            "Aviation",
-            "Department",
-            "Oil",
-            "Food"
+                "Tech",
+                "Bank ",
+                "Aviation",
+                "Department",
+                "Oil",
+                "Food"
         };
         return descriptions[groupIndex];
     }
@@ -111,6 +120,25 @@ public class Main extends Application {
             // Add the series to the line chart
             lineChart.getData().add(series);
         }
+    }
+
+    // Method to show the sources popup
+    private void showSourcesPopup() {
+        // You can customize the content and appearance of the popup as needed
+        String sources = "Sources:\n"
+                + "Tech: ...\n"
+                + "Bank: ...\n"
+                + "Aviation: ...\n"
+                + "Department: ...\n"
+                + "Oil: ...\n"
+                + "Food: ...";
+
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Sources");
+        VBox popupLayout = new VBox(new Text(sources));
+        Scene popupScene = new Scene(popupLayout, 400, 300);
+        popupStage.setScene(popupScene);
+        popupStage.show();
     }
 
     public static void main(String[] args) {
